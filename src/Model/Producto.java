@@ -1,8 +1,12 @@
 package Model;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.util.List;
 
 public class Producto {
+    private int ID;
     private String nombre;
     private String categoria;
     private float precio;
@@ -10,7 +14,8 @@ public class Producto {
     private int stock;
 
     // Constructor para crear un Producto
-    public Producto(String nombre, String categoria, float precio, float costo, int stock) {
+    public Producto(int ID, String nombre, String categoria, float precio, float costo, int stock) {
+        this.ID = ID;
         this.nombre = nombre;
         this.categoria = categoria;
         this.precio = precio;
@@ -18,7 +23,16 @@ public class Producto {
         this.stock = stock;
     }
 
+    public Producto() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+    
+    public int getID() {
+        return ID;
+    }
+
     // Métodos para acceder a los atributos
+   
     public String getNombre() {
         return nombre;
     }
@@ -40,6 +54,11 @@ public class Producto {
     }
 
     // Métodos para actualizar los atributos
+    
+    public void setID(int ID) {
+        this.ID = ID;
+    }
+    
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
@@ -94,9 +113,8 @@ public class Producto {
         }
         System.out.println("------------------------------------------------------------------------");
     }
-    
-    
-    
+
+
 }
     
     
