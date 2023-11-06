@@ -5,6 +5,7 @@
 package Model;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import javax.swing.*;
 /**
  *
  * @author Francisco Galea
@@ -16,10 +17,12 @@ public class Conexion {
     String contraseña = "";   
     
     Connection con;   
-    public Connection Conexion(){
+    public Connection conexion(){
         try{
             Class.forName("com.mysql.jdbc.Driver");
-            con = DriverManager.getConnection(jdbcUrl,usuario,contraseña);           
+            con = DriverManager.getConnection(jdbcUrl,usuario,contraseña);  
+            System.out.println("ESTA CONECTADO");
+            
             
         }catch(Exception e){
             System.out.println("Error al conectar a la base");

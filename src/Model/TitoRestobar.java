@@ -5,8 +5,11 @@
 package Model;
 
 import View.MainView;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 import javax.swing.SwingUtilities;
-
+import Model.Conexion;
 /**
  *
  * @author Notebook12
@@ -14,11 +17,18 @@ import javax.swing.SwingUtilities;
 public class TitoRestobar {
 
   public static void main(String[] args) {
+      
+      
+    Conexion micon = new Conexion();  
+    micon.conexion();
+      
     SwingUtilities.invokeLater(() -> {
         MainView ventanaPrincipal = new MainView();
         ventanaPrincipal.setVisible(true);
     });  
+    
+    
 }
-    }
+}
     
 

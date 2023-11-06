@@ -17,7 +17,7 @@ public class ProductoDAO {
     PreparedStatement ps;
     ResultSet rs;
     
-    public List listar(){
+    public List listar() throws Exception{
         List<Producto> datos = new ArrayList<>();
         String sql = "select * from mercaderia";
         try{
@@ -34,22 +34,29 @@ public class ProductoDAO {
                 p.setStock(rs.getInt(6));
                 datos.add(p);
             }
+            return datos;
         }catch(Exception e){
-            
+            throw new Exception(e);
         }
-        return datos;        
+                
     }
     
     public int AgregarProducto(Producto p){
-        String slq = "insert into mercaderia values (Nombre, Categoria, Costo, Precio, Stock(?,?,?,?,?)";
+        String sql = "insert into mercaderia values (Nombre, Categoria, Costo, Precio, Stock(?,?,?,?,?)";
         try{
             con = conectar.getConnection();
-            ps = con.prepareStatement(slq);
+            ps = con.prepareStatement(sql);
             ps.executeUpdate();
-        }catch(Exception e){
+            ps.setString(1, p.getNombre().trim());
+            ps.setString(2, p.getCategoria().trim());
+            ps.setFloat(3, p.getCosto());
+            ps.setFloat(4, p.getPrecio());
+            ps.setInt(5,p.getStock());
+       
+          }catch(Exception e){
             
         }     
-        return 0;
+        return 1;
         
     }
 }
