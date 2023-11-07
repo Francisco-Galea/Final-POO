@@ -67,7 +67,8 @@ public class Pedido {
         this.fechaCierre = new Date(); // Se registra la fecha de cierre
         this.pedidoCerrado = true;
     }
-
+    
+    /*
     // Método para calcular el total del pedido con descuento
     public float calcularTotalConDescuento() {
         float total = 0.0f;
@@ -81,5 +82,5 @@ public class Pedido {
 
     String getDescripcion() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
+    }*/
 }

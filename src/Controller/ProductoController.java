@@ -4,6 +4,7 @@
  */
 package Controller;
 
+import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -20,15 +21,15 @@ public class ProductoController {
     private static final String usuario = "root";
     private static final String contraseña = "";
     
-    public static void insertarProducto(String nombre, String categoria, float costo, float precio, int stock) {
+    public static void insertarProducto(String nombre, String categoria, BigDecimal costo, BigDecimal precio, int stock) {
         
         try(Connection conexion = DriverManager.getConnection(jdbcUrl, usuario, contraseña)){           
             String consulta = "INSERT INTO mercaderia (nombre, categoria, costo, precio, stock) VALUES (?, ?, ?, ?, ?)";
             PreparedStatement statement = conexion.prepareStatement(consulta);
             statement.setString(1, nombre);
             statement.setString(2, categoria);
-            statement.setFloat(3, costo);
-            statement.setFloat(4, precio);
+            statement.setBigDecimal(3, costo);
+            statement.setBigDecimal(4, precio);
             statement.setInt(5, stock);
             statement.executeUpdate();
 
@@ -54,7 +55,7 @@ public class ProductoController {
             String consulta = "SELECT * FROM mercaderia";
             try (PreparedStatement statement = conexion.prepareStatement(consulta); ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
-                    Object[] fila = {resultSet.getInt("id"),resultSet.getString("nombre"), resultSet.getString("categoria"),resultSet.getFloat("costo"), resultSet.getFloat("precio"), resultSet.getInt("stock")};
+                    Object[] fila = {resultSet.getInt("id"),resultSet.getString("nombre"), resultSet.getString("categoria"),resultSet.getBigDecimal("costo"), resultSet.getBigDecimal("precio"), resultSet.getInt("stock")};
                     modeloTabla.addRow(fila);
                 }
             }
@@ -79,15 +80,15 @@ public class ProductoController {
                             }
 }
     
-    public static void actualizarProducto(int idProducto, String nuevoNombre, String nuevaCategoria, float nuevoCosto, float nuevoPrecio, int nuevoStock) {
+    public static void actualizarProducto(int idProducto, String nuevoNombre, String nuevaCategoria, BigDecimal nuevoCosto, BigDecimal nuevoPrecio, int nuevoStock) {
  
     try(Connection conexion = DriverManager.getConnection(jdbcUrl, usuario, contraseña)) {       
         String consulta = "UPDATE mercaderia SET nombre = ?, categoria = ?, costo = ?, precio = ?, stock = ? WHERE id = ?";
         try (PreparedStatement statement = conexion.prepareStatement(consulta)) {
             statement.setString(1, nuevoNombre);
             statement.setString(2, nuevaCategoria);
-            statement.setFloat(3, nuevoCosto);
-            statement.setFloat(4, nuevoPrecio);
+            statement.setBigDecimal(3, nuevoCosto);
+            statement.setBigDecimal(4, nuevoPrecio);
             statement.setInt(5, nuevoStock);
             statement.setInt(6, idProducto);
             statement.executeUpdate();

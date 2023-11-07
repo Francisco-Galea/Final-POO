@@ -53,6 +53,8 @@ public class Mesa {
         pedidos.remove(pedido); // Elimina un pedido de la lista
     }
 
+    
+    /*
     public void mostrarInformacion() {
         System.out.println("Numero de mesa: " + numeroMesa);
         System.out.println("ID: " + id);
@@ -68,5 +70,5 @@ public class Mesa {
         this.id = nuevoId;
         this.activo = nuevoActivo;
     }
-   
+   */
 }

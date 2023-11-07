@@ -11,6 +11,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.math.BigDecimal;
 import java.sql.*;
 import javax.swing.JLabel;
 import javax.swing.JMenuItem;
@@ -230,8 +231,8 @@ public class ProductoView extends javax.swing.JFrame {
          
         String nombre = txtNombre.getText();
         String categoria = txtCategoria.getText();
-        float costo = Float.parseFloat(txtCosto.getText());
-        float precio = Float.parseFloat(txtPrecio.getText());
+        BigDecimal costo = new BigDecimal(txtCosto.getText());
+        BigDecimal precio = new BigDecimal(txtPrecio.getText());
         int stock = Integer.parseInt(txtStock.getText());
 
     // Llama al controlador para insertar el producto
@@ -269,8 +270,8 @@ public class ProductoView extends javax.swing.JFrame {
             int idProducto = (int) tableProductos.getValueAt(filaSeleccionada, 0);
             String nombre = (String) tableProductos.getValueAt(filaSeleccionada, 1);
             String categoria = (String) tableProductos.getValueAt(filaSeleccionada, 2);
-            float costo = (float) tableProductos.getValueAt(filaSeleccionada, 3);
-            float precio = (float) tableProductos.getValueAt(filaSeleccionada, 4);
+            BigDecimal costo = (BigDecimal) tableProductos.getValueAt(filaSeleccionada, 3);
+            BigDecimal precio = (BigDecimal) tableProductos.getValueAt(filaSeleccionada, 4);
             int stock = (int) tableProductos.getValueAt(filaSeleccionada, 5);
         
             JPanel panel = new JPanel(new GridLayout(6, 2));
@@ -295,8 +296,8 @@ public class ProductoView extends javax.swing.JFrame {
             if (opcion == JOptionPane.OK_OPTION) {
                 String nuevoNombre = nombreField.getText();
                 String nuevaCategoria = categoriaField.getText();
-                float nuevoCosto = Float.parseFloat(costoField.getText());
-                float nuevoPrecio = Float.parseFloat(precioField.getText());
+                BigDecimal nuevoCosto = new BigDecimal(costoField.getText());
+                BigDecimal nuevoPrecio = new BigDecimal(precioField.getText());
                 int nuevoStock = Integer.parseInt(stockField.getText());
             
             ProductoController.actualizarProducto(idProducto, nuevoNombre, nuevaCategoria, nuevoCosto, nuevoPrecio, nuevoStock);    

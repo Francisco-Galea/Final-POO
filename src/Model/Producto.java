@@ -1,16 +1,17 @@
 package Model;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 public class Producto {
     private String nombre;
     private String categoria;
-    private float precio;
-    private float costo;
+    private BigDecimal precio;
+    private BigDecimal costo;
     private int stock;
 
     // Constructor para crear un Producto
-    public Producto(String nombre, String categoria, float precio, float costo, int stock) {
+    public Producto(String nombre, String categoria, BigDecimal precio, BigDecimal costo, int stock) {
         this.nombre = nombre;
         this.categoria = categoria;
         this.precio = precio;
@@ -27,11 +28,11 @@ public class Producto {
         return categoria;
     }
 
-    public float getPrecio() {
+    public BigDecimal getPrecio() {
         return precio;
     }
 
-    public float getCosto() {
+    public BigDecimal getCosto() {
         return costo;
     }
 
@@ -48,11 +49,11 @@ public class Producto {
         this.categoria = categoria;
     }
 
-    public void setPrecio(float precio) {
+    public void setPrecio(BigDecimal precio) {
         this.precio = precio;
     }
 
-    public void setCosto(float costo) {
+    public void setCosto(BigDecimal costo) {
         this.costo = costo;
     }
 
@@ -76,7 +77,7 @@ public class Producto {
     }
 
     // Método para actualizar información del Producto (Update)
-    public void actualizarProducto(String nuevoNombre, String nuevaCategoria, float nuevoPrecio, float nuevoCosto, int nuevoStock) {
+    /*public void actualizarProducto(String nuevoNombre, String nuevaCategoria, float nuevoPrecio, float nuevoCosto, int nuevoStock) {
         this.nombre = nuevoNombre;
         this.categoria = nuevaCategoria;
         this.precio = nuevoPrecio;
@@ -95,7 +96,7 @@ public class Producto {
         System.out.println("------------------------------------------------------------------------");
     }
     
-    
+    */
     
 }
     
