@@ -18,6 +18,8 @@ public class ProductoView extends javax.swing.JFrame {
     public ProductoView() {  
         initComponents();
         this.setLocationRelativeTo(null);
+        DefaultTableModel modeloTabla = new DefaultTableModel();
+        JTable tableProductos = new JTable(modeloTabla);
         
         
     }
@@ -205,6 +207,8 @@ public class ProductoView extends javax.swing.JFrame {
 
     private void btnActualizarTablaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarTablaActionPerformed
       
+        DefaultTableModel modeloTabla = ProductoController.obtenerProductos();
+        tableProductos.setModel(modeloTabla);
    
     }//GEN-LAST:event_btnActualizarTablaActionPerformed
 
