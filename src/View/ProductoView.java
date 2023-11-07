@@ -6,10 +6,22 @@
  */
 package View;
 import Controller.ProductoController;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.sql.*;
+import javax.swing.JLabel;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
 import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
 public class ProductoView extends javax.swing.JFrame {
@@ -19,8 +31,8 @@ public class ProductoView extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
         DefaultTableModel modeloTabla = new DefaultTableModel();
-        JTable tableProductos = new JTable(modeloTabla);
         
+     
         
     }
 
@@ -57,8 +69,18 @@ public class ProductoView extends javax.swing.JFrame {
         });
 
         btnModificarProducto.setText("Modificar Producto");
+        btnModificarProducto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnModificarProductoActionPerformed(evt);
+            }
+        });
 
         btnEliminarProducto.setText("Eliminar Producto");
+        btnEliminarProducto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarProductoActionPerformed(evt);
+            }
+        });
 
         lblProductos.setText("Ingrese un Producto");
 
@@ -74,15 +96,27 @@ public class ProductoView extends javax.swing.JFrame {
 
         tableProductos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+
             },
             new String [] {
-                "Nombre", "Categoria", "Costo", "Precio", "Stock"
+                "ID", "Nombre", "Categoria", "Costo", "Precio", "Stock", "Eliminar"
             }
-        ));
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Float.class, java.lang.Float.class, java.lang.Integer.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         tableProductos.setShowGrid(true);
         jScrollPane1.setViewportView(tableProductos);
 
@@ -135,7 +169,7 @@ public class ProductoView extends javax.swing.JFrame {
                 .addGap(17, 17, 17)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblProductos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 391, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 514, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -212,8 +246,65 @@ public class ProductoView extends javax.swing.JFrame {
    
     }//GEN-LAST:event_btnActualizarTablaActionPerformed
 
+    private void btnEliminarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarProductoActionPerformed
+        
+        
+            int filaSeleccionada = tableProductos.getSelectedRow();
+            if (filaSeleccionada != -1) {
+                int idProducto = (int) tableProductos.getValueAt(filaSeleccionada, 0); 
+                ProductoController.eliminarProductoPorID(idProducto);
+
+            
+                DefaultTableModel modeloTabla = (DefaultTableModel) tableProductos.getModel();
+                modeloTabla.removeRow(filaSeleccionada);
+                                        }
+                                                    
+
+    }//GEN-LAST:event_btnEliminarProductoActionPerformed
+
+    private void btnModificarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarProductoActionPerformed
+        
+        int filaSeleccionada = tableProductos.getSelectedRow();
+        if (filaSeleccionada != -1) {
+            int idProducto = (int) tableProductos.getValueAt(filaSeleccionada, 0);
+            String nombre = (String) tableProductos.getValueAt(filaSeleccionada, 1);
+            String categoria = (String) tableProductos.getValueAt(filaSeleccionada, 2);
+            float costo = (float) tableProductos.getValueAt(filaSeleccionada, 3);
+            float precio = (float) tableProductos.getValueAt(filaSeleccionada, 4);
+            int stock = (int) tableProductos.getValueAt(filaSeleccionada, 5);
+        
+            JPanel panel = new JPanel(new GridLayout(6, 2));
+            JTextField nombreField = new JTextField(nombre);
+            JTextField categoriaField = new JTextField(categoria);
+            JTextField costoField = new JTextField(String.valueOf(costo));
+            JTextField precioField = new JTextField(String.valueOf(precio));
+            JTextField stockField = new JTextField(String.valueOf(stock));
+            
+            panel.add(new JLabel("Nombre:"));
+            panel.add(nombreField);
+            panel.add(new JLabel("Categoría:"));
+            panel.add(categoriaField);
+            panel.add(new JLabel("Costo:"));
+            panel.add(costoField);
+            panel.add(new JLabel("Precio:"));
+            panel.add(precioField);
+            panel.add(new JLabel("Stock:"));
+            panel.add(stockField);
+            
+            int opcion = JOptionPane.showConfirmDialog(null, panel, "Editar Producto", JOptionPane.OK_CANCEL_OPTION);
+            if (opcion == JOptionPane.OK_OPTION) {
+                String nuevoNombre = nombreField.getText();
+                String nuevaCategoria = categoriaField.getText();
+                float nuevoCosto = Float.parseFloat(costoField.getText());
+                float nuevoPrecio = Float.parseFloat(precioField.getText());
+                int nuevoStock = Integer.parseInt(stockField.getText());
+            
+            ProductoController.actualizarProducto(idProducto, nuevoNombre, nuevaCategoria, nuevoCosto, nuevoPrecio, nuevoStock);    
+    }//GEN-LAST:event_btnModificarProductoActionPerformed
+
     
-    
+        }
+        }
     
     
     
