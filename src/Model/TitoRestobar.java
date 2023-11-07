@@ -31,7 +31,7 @@ public class TitoRestobar {
             // Realiza operaciones con la base de datos aquí.
             conexion.close(); // Cierra la conexión cuando hayas terminado.
         } catch (Exception e) {
-           
+            System.out.println("Fallo al conectar con la base de datos");
         }
     
     
