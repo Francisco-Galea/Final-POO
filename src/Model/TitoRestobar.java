@@ -26,7 +26,7 @@ public class TitoRestobar {
             System.out.println("Fallo al conectar con la base de datos");
         }
     
-      System.out.println("mandingo");
+     
 }
 
     }
