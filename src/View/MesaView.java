@@ -1,5 +1,6 @@
 package View;
 
+import Controller.MesaController;
 import Model.Mesa;
 import java.awt.BorderLayout;
 import java.awt.Component;
@@ -121,10 +122,17 @@ public class MesaView extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jButton6ActionPerformed
 
-    private void BtnCrearMesaActionPerformed(java.awt.event.ActionEvent evt) {
-    // Crea una instancia de Mesa
-    Mesa mesa = new Mesa(mesasCreadas.size() + 1, 1, true);
-    mesasCreadas.add(mesa); // Agrega la mesa a la lista
+  private void BtnCrearMesaActionPerformed(java.awt.event.ActionEvent evt) {
+    // Después de insertar la mesa en la base de datos, obtén el idMesa autoincrementado
+    MesaController mesaController = new MesaController();
+    int idMesaInsertada = mesaController.obtenerIdMesaDesdeBaseDeDatos();
+    // Crea una instancia de Mesa con el idMesa obtenido
+    Mesa mesa = new Mesa(idMesaInsertada, mesasCreadas.size() + 1, true);
+    // Añade la mesa a la lista
+    mesasCreadas.add(mesa);
+    // Llama al método para crear la mesa en la base de datos
+    
+    mesaController.crearMesaEnBD(mesa);
 
     // Crea una instancia de PanelMesa para la nueva mesa
     PanelMesa panelMesa = new PanelMesa(mesa);
@@ -134,17 +142,23 @@ public class MesaView extends javax.swing.JFrame {
     jPanel1.revalidate();
     jPanel1.repaint();
 }
+
 /*
     private void BtnCrearMesaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCrearMesaActionPerformed
         
        
     }//GEN-LAST:event_BtnCrearMesaActionPerformed
-*/
+*/ /*
     private void BtnEliminarMesaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnEliminarMesaActionPerformed
-    
+*/
+private void BtnEliminarMesaActionPerformed(java.awt.event.ActionEvent evt) {
     if (!mesasCreadas.isEmpty()) {
-        // Elimina la última mesa creada
-        Mesa mesaAEliminar = mesasCreadas.remove(mesasCreadas.size() - 1);
+        // Obtén la última mesa creada
+        Mesa mesaAEliminar = mesasCreadas.get(mesasCreadas.size() - 1);
+        int idMesaAEliminar = mesaAEliminar.getIdMesa();
+
+        MesaController mesaController = new MesaController();
+        mesaController.eliminarMesaEnBD(idMesaAEliminar); // Pasa el idMesa correcto
 
         // Busca y elimina la instancia de PanelMesa asociada a la mesa a eliminar
         for (Component component : jPanel1.getComponents()) {
@@ -220,4 +234,6 @@ public class MesaView extends javax.swing.JFrame {
     private javax.swing.JButton jButton6;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
+
+   
 }
