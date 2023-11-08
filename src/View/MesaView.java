@@ -17,6 +17,7 @@ import javax.swing.JPanel;
 public class MesaView extends javax.swing.JFrame {
 
     private List<Mesa> mesasCreadas = new ArrayList<>();
+    private List<Mesa> mesasActivas = new ArrayList<>();
 
     /**
      * Creates new form MesaView
@@ -122,25 +123,29 @@ public class MesaView extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jButton6ActionPerformed
 
-  private void BtnCrearMesaActionPerformed(java.awt.event.ActionEvent evt) {
-    // Después de insertar la mesa en la base de datos, obtén el idMesa autoincrementado
+private void BtnCrearMesaActionPerformed(java.awt.event.ActionEvent evt) {
     MesaController mesaController = new MesaController();
-    int idMesaInsertada = mesaController.obtenerIdMesaDesdeBaseDeDatos();
-    // Crea una instancia de Mesa con el idMesa obtenido
+    int idMesaInsertada = mesaController.obtenerIdMesaDesdeBaseDeDatos() + 1;
     Mesa mesa = new Mesa(idMesaInsertada, mesasCreadas.size() + 1, true);
+    
     // Añade la mesa a la lista
     mesasCreadas.add(mesa);
-    // Llama al método para crear la mesa en la base de datos
+    mesasActivas.add(mesa); // Añadir la mesa a la lista de mesas activas
+    System.out.println("Mesa creada y agregada a la lista. ID: " );
     
+    // Llama al método para crear la mesa en la base de datos
     mesaController.crearMesaEnBD(mesa);
+    System.out.println("Mesa insertada en la base de datos. ID: " );
 
     // Crea una instancia de PanelMesa para la nueva mesa
     PanelMesa panelMesa = new PanelMesa(mesa);
     jPanel1.add(panelMesa);
+    System.out.println("PanelMesa creado y agregado a la vista.");
 
     // Asegúrate de actualizar la vista para que se reflejen los cambios
     jPanel1.revalidate();
     jPanel1.repaint();
+    System.out.println("Vista actualizada.");
 }
 
 /*
@@ -152,28 +157,27 @@ public class MesaView extends javax.swing.JFrame {
     private void BtnEliminarMesaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnEliminarMesaActionPerformed
 */
 private void BtnEliminarMesaActionPerformed(java.awt.event.ActionEvent evt) {
-    if (!mesasCreadas.isEmpty()) {
-        // Obtén la última mesa creada
-        Mesa mesaAEliminar = mesasCreadas.get(mesasCreadas.size() - 1);
-        int idMesaAEliminar = mesaAEliminar.getIdMesa();
-
+    if (!mesasActivas.isEmpty()) {
+        Mesa mesaAEliminar = mesasActivas.get(mesasActivas.size() - 1);
         MesaController mesaController = new MesaController();
-        mesaController.eliminarMesaEnBD(idMesaAEliminar); // Pasa el idMesa correcto
+        int idMesaAEliminar = mesaAEliminar.getIdMesa();
+        
+        // Mensaje de depuración: Mostrar información sobre la mesa a eliminar
+        System.out.println("Eliminando mesa con ID: " + idMesaAEliminar);
+        
+        // Elimina la mesa de la base de datos
+        mesaController.eliminarMesaEnBD(idMesaAEliminar);
+        System.out.println("Mesa con ID " + idMesaAEliminar + " eliminada de la base de datos.");
 
-        // Busca y elimina la instancia de PanelMesa asociada a la mesa a eliminar
-        for (Component component : jPanel1.getComponents()) {
-            if (component instanceof PanelMesa) {
-                PanelMesa panelMesa = (PanelMesa) component;
-                if (panelMesa.getMesa() == mesaAEliminar) {
-                    jPanel1.remove(panelMesa);
-                    break; // Termina la búsqueda una vez que se ha eliminado una instancia
-                }
-            }
-        }
+        // Elimina la mesa de la lista
+        mesasCreadas.remove(mesaAEliminar);
+        mesasActivas.remove(mesaAEliminar);
+        System.out.println("Mesa eliminada de la lista. Mesas activas restantes: " + mesasActivas.size());
 
         // Asegúrate de actualizar la vista después de eliminar
         jPanel1.revalidate();
         jPanel1.repaint();
+        System.out.println("Vista actualizada.");
     }
 
     }//GEN-LAST:event_BtnEliminarMesaActionPerformed
