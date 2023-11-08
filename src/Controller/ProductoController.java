@@ -97,25 +97,7 @@ public class ProductoController {
         
     }
 }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+   
 }
     
 
