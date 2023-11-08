@@ -237,7 +237,7 @@ public class ProductoView extends javax.swing.JFrame {
 
     // Llama al controlador para insertar el producto
         ProductoController.insertarProducto(nombre, categoria, costo, precio, stock);
-        
+        //actualizar tabla
     }//GEN-LAST:event_btnCrearProductoActionPerformed
 
     private void btnActualizarTablaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarTablaActionPerformed
