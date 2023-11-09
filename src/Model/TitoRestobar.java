@@ -8,8 +8,8 @@ import javax.swing.SwingUtilities;
 /*
 
 Trabajo realizado por:
-- Galea Francisco
-- Rosa Velazco Alejandro
+- Francisco Galea
+- Alejandro Rosa Velazco
 
 */
 
