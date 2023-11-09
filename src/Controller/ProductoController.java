@@ -1,10 +1,7 @@
 package Controller;
 
-
-
 import Model.Producto;
 import Model.ProductoDAO;
-import View.ProductoView;
 import java.awt.GridLayout;
 import java.math.BigDecimal;
 import javax.swing.JLabel;
@@ -17,25 +14,27 @@ import javax.swing.table.DefaultTableModel;
 public class ProductoController {
 
     public static void insertarProducto(String nombre, String categoria, BigDecimal costo, BigDecimal precio, int stock) {
+        
         Producto nuevoProducto = new Producto(nombre, categoria, costo, precio, stock);
         ProductoDAO.insertarProducto(nuevoProducto);
         JOptionPane.showMessageDialog(null, "Producto cargado con éxito");
+        
     }
 
     public static DefaultTableModel obtenerProductos() {
+        
         return (DefaultTableModel) ProductoDAO.obtenerProductos();
+        
     }
 
     public static void eliminarProductoPorID(int idProducto) {
+        
         ProductoDAO.eliminarProductoPorID(idProducto);
-    }
-
-    public static void actualizarProducto(int idProducto, String nuevoNombre, String nuevaCategoria, BigDecimal nuevoCosto, BigDecimal nuevoPrecio, int nuevoStock) {
-        Producto productoActualizado = new Producto(nuevoNombre, nuevaCategoria, nuevoCosto, nuevoPrecio, nuevoStock);
-        ProductoDAO.actualizarProducto(productoActualizado, idProducto);
+        
     }
 
     public static void modificarProductoDesdeTabla(int filaSeleccionada, JTable tableProductos) {
+        
         int idProducto = (int) tableProductos.getValueAt(filaSeleccionada, 0);
         String nombre = (String) tableProductos.getValueAt(filaSeleccionada, 1);
         String categoria = (String) tableProductos.getValueAt(filaSeleccionada, 2);
@@ -68,9 +67,9 @@ public class ProductoController {
             BigDecimal nuevoCosto = new BigDecimal(costoField.getText());
             BigDecimal nuevoPrecio = new BigDecimal(precioField.getText());
             int nuevoStock = Integer.parseInt(stockField.getText());
-
-            // Call DAO to update the product with the modified values
+           
             ProductoDAO.actualizarProducto(new Producto(nuevoNombre, nuevaCategoria, nuevoCosto, nuevoPrecio, nuevoStock), idProducto);
-        }
+                                              }
     }
+    
 }

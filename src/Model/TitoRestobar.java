@@ -18,9 +18,8 @@ public class TitoRestobar {
         String contraseña = "";
 
         try (Connection conexion = DriverManager.getConnection(jdbcUrl, usuario, contraseña)) {
-            System.out.println("Conexión exitosa a la base de datos.");
-        } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println("Conexion exitosa a la base de datos.");
+        } catch (Exception e) {           
             System.out.println("Fallo al conectar con la base de datos");
         }
     }

@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package Model;
 
 import java.sql.Connection;
@@ -26,11 +22,9 @@ public class ProductoDAO {
                 statement.setBigDecimal(4, producto.getPrecio());
                 statement.setInt(5, producto.getStock());
                 statement.executeUpdate();
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.out.println("Error al insertar producto en la base de datos");
-        }
+                                                                                          }
+        } catch (Exception e) {          
+                              }
     }
 
     public static DefaultTableModel obtenerProductos() {
@@ -48,12 +42,11 @@ public class ProductoDAO {
                 while (resultSet.next()) {
                     Object[] fila = {resultSet.getInt("id"), resultSet.getString("nombre"), resultSet.getString("categoria"), resultSet.getBigDecimal("costo"), resultSet.getBigDecimal("precio"), resultSet.getInt("stock")};
                     modeloTabla.addRow(fila);
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.out.println("Error al obtener productos desde la base de datos");
-        }
+                                         }
+                                                                                                                                         }
+        }catch (Exception e) {
+                        
+                              }
         return modeloTabla;
     }
 
@@ -63,10 +56,10 @@ public class ProductoDAO {
             try (PreparedStatement statement = conexion.prepareStatement(consulta)) {
                 statement.setInt(1, idProducto);
                 statement.executeUpdate();
-            }
-        } catch (Exception e) {
-            // Manejar la excepción, por ejemplo, lanzarla o registrarla
-        }
+                                                                                         }
+        }catch (Exception e) {
+            
+                             }
     }
 
     public static void actualizarProducto(Producto producto, int idProducto) {
@@ -80,11 +73,10 @@ public class ProductoDAO {
             statement.setInt(5, producto.getStock());
             statement.setInt(6, idProducto);
             statement.executeUpdate();
-        }
-    } catch (Exception e) {
-        // Manejar la excepción, por ejemplo, lanzarla o registrarla
+                                                                                      }
+        }catch (Exception e) {
+       
+                             }
     }
-}
-
-    // Agrega aquí otros métodos si es necesario, como obtenerIDProductoPorNombre, etc.
+   
 }

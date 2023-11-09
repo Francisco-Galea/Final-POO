@@ -55,7 +55,6 @@
                   <Component id="btnModificarProducto" alignment="0" min="-2" max="-2" attributes="0"/>
                   <Component id="btnEliminarProducto" alignment="0" min="-2" pref="132" max="-2" attributes="0"/>
                   <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                      <Component id="btnActualizarTabla" alignment="0" max="32767" attributes="0"/>
                       <Component id="btnRegresar" alignment="0" max="32767" attributes="0"/>
                       <Component id="btnCrearProducto" alignment="0" pref="132" max="32767" attributes="0"/>
                   </Group>
@@ -107,9 +106,7 @@
                       <Component id="btnModificarProducto" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="btnCrearProducto" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="btnActualizarTabla" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="80" max="32767" attributes="0"/>
+                      <EmptySpace pref="109" max="32767" attributes="0"/>
                       <Component id="btnRegresar" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Component id="jScrollPane1" pref="0" max="32767" attributes="0"/>
@@ -247,14 +244,6 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnRegresarActionPerformed"/>
-      </Events>
-    </Component>
-    <Component class="javax.swing.JButton" name="btnActualizarTabla">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Actualiza tabla"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnActualizarTablaActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>

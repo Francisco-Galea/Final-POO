@@ -6,23 +6,8 @@
  */
 package View;
 import Controller.ProductoController;
-import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.math.BigDecimal;
-import java.sql.*;
-import javax.swing.JLabel;
-import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JPopupMenu;
-import javax.swing.JTable;
-import javax.swing.JTextField;
-import javax.swing.SwingUtilities;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
+
 import javax.swing.table.DefaultTableModel;
 
 public class ProductoView extends javax.swing.JFrame {
@@ -59,7 +44,6 @@ public class ProductoView extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tableProductos = new javax.swing.JTable();
         btnRegresar = new javax.swing.JButton();
-        btnActualizarTabla = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -129,13 +113,6 @@ public class ProductoView extends javax.swing.JFrame {
             }
         });
 
-        btnActualizarTabla.setText("Actualiza tabla");
-        btnActualizarTabla.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnActualizarTablaActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -165,7 +142,6 @@ public class ProductoView extends javax.swing.JFrame {
                     .addComponent(btnModificarProducto)
                     .addComponent(btnEliminarProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(btnActualizarTabla, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnRegresar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnCrearProducto, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 132, Short.MAX_VALUE)))
                 .addGap(17, 17, 17)
@@ -207,9 +183,7 @@ public class ProductoView extends javax.swing.JFrame {
                         .addComponent(btnModificarProducto)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnCrearProducto)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnActualizarTabla)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 80, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 109, Short.MAX_VALUE)
                         .addComponent(btnRegresar))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addGap(12, 12, 12))
@@ -221,13 +195,13 @@ public class ProductoView extends javax.swing.JFrame {
 //-------------------------------------- INICIO CODIGO DE BOTONES Y OTRAS COSAS ------------------------------------------------------    
     
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
+        
         MainView newframe = new MainView();
         newframe.setVisible(true);
         this.dispose();
+        
     }//GEN-LAST:event_btnRegresarActionPerformed
-    
-    
-    
+     
     private void btnCrearProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearProductoActionPerformed
   
         String nombre = txtNombre.getText();
@@ -236,20 +210,11 @@ public class ProductoView extends javax.swing.JFrame {
         BigDecimal precio = new BigDecimal(txtPrecio.getText());
         int stock = Integer.parseInt(txtStock.getText());
 
-        // Llama al controlador para insertar el producto
         ProductoController.insertarProducto(nombre, categoria, costo, precio, stock);
 
-        // Actualiza la tabla después de insertar
         actualizarTabla();
     
     }//GEN-LAST:event_btnCrearProductoActionPerformed
-
-    private void btnActualizarTablaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarTablaActionPerformed
-      
-        DefaultTableModel modeloTabla = ProductoController.obtenerProductos();
-        tableProductos.setModel(modeloTabla);
-   
-    }//GEN-LAST:event_btnActualizarTablaActionPerformed
 
     private void btnEliminarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarProductoActionPerformed
 
@@ -261,28 +226,28 @@ public class ProductoView extends javax.swing.JFrame {
             DefaultTableModel modeloTabla = (DefaultTableModel) tableProductos.getModel();
             modeloTabla.removeRow(filaSeleccionada);
 
-            // Actualiza la tabla después de eliminar
             actualizarTabla();
-        }
-    
+        }   
     }//GEN-LAST:event_btnEliminarProductoActionPerformed
 
     private void btnModificarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarProductoActionPerformed
         
-         int filaSeleccionada = tableProductos.getSelectedRow();
-    if (filaSeleccionada != -1) {
-        ProductoController.modificarProductoDesdeTabla(filaSeleccionada, tableProductos);
-    }
-             // Actualiza la tabla después de eliminar
-            actualizarTabla();
+        int filaSeleccionada = tableProductos.getSelectedRow();
+        if (filaSeleccionada != -1) {
+            ProductoController.modificarProductoDesdeTabla(filaSeleccionada, tableProductos);
+                                    }
+        actualizarTabla();
+        
     }//GEN-LAST:event_btnModificarProductoActionPerformed
 
 
         
         
      private void actualizarTabla() {
+         
         DefaultTableModel modeloTabla = ProductoController.obtenerProductos();
         tableProductos.setModel(modeloTabla);
+        
     }
 
     
@@ -304,7 +269,6 @@ public class ProductoView extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnActualizarTabla;
     private javax.swing.JButton btnCrearProducto;
     private javax.swing.JButton btnEliminarProducto;
     private javax.swing.JButton btnModificarProducto;
