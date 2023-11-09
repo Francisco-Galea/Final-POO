@@ -6,16 +6,17 @@ import java.util.List;
 public class Producto {
     private String nombre;
     private String categoria;
-    private BigDecimal precio;
     private BigDecimal costo;
+    private BigDecimal precio;
+    
     private int stock;
 
     // Constructor para crear un Producto
-    public Producto(String nombre, String categoria, BigDecimal precio, BigDecimal costo, int stock) {
+    public Producto(String nombre, String categoria, BigDecimal costo, BigDecimal precio, int stock) {
         this.nombre = nombre;
         this.categoria = categoria;
-        this.precio = precio;
-        this.costo = costo;
+        this.precio = costo;
+        this.costo = precio;
         this.stock = stock;
     }
 

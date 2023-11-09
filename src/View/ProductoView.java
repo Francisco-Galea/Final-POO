@@ -32,6 +32,7 @@ public class ProductoView extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
         DefaultTableModel modeloTabla = new DefaultTableModel();
+        actualizarTabla();
         
      
         
@@ -228,16 +229,19 @@ public class ProductoView extends javax.swing.JFrame {
     
     
     private void btnCrearProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearProductoActionPerformed
-         
+  
         String nombre = txtNombre.getText();
         String categoria = txtCategoria.getText();
         BigDecimal costo = new BigDecimal(txtCosto.getText());
         BigDecimal precio = new BigDecimal(txtPrecio.getText());
         int stock = Integer.parseInt(txtStock.getText());
 
-    // Llama al controlador para insertar el producto
+        // Llama al controlador para insertar el producto
         ProductoController.insertarProducto(nombre, categoria, costo, precio, stock);
-        //actualizar tabla
+
+        // Actualiza la tabla después de insertar
+        actualizarTabla();
+    
     }//GEN-LAST:event_btnCrearProductoActionPerformed
 
     private void btnActualizarTablaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarTablaActionPerformed
@@ -248,65 +252,39 @@ public class ProductoView extends javax.swing.JFrame {
     }//GEN-LAST:event_btnActualizarTablaActionPerformed
 
     private void btnEliminarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarProductoActionPerformed
-        
-        
-            int filaSeleccionada = tableProductos.getSelectedRow();
-            if (filaSeleccionada != -1) {
-                int idProducto = (int) tableProductos.getValueAt(filaSeleccionada, 0); 
-                ProductoController.eliminarProductoPorID(idProducto);
 
-            
-                DefaultTableModel modeloTabla = (DefaultTableModel) tableProductos.getModel();
-                modeloTabla.removeRow(filaSeleccionada);
-                                        }
-                                                    
+        int filaSeleccionada = tableProductos.getSelectedRow();
+        if (filaSeleccionada != -1) {
+            int idProducto = (int) tableProductos.getValueAt(filaSeleccionada, 0);
+            ProductoController.eliminarProductoPorID(idProducto);
 
+            DefaultTableModel modeloTabla = (DefaultTableModel) tableProductos.getModel();
+            modeloTabla.removeRow(filaSeleccionada);
+
+            // Actualiza la tabla después de eliminar
+            actualizarTabla();
+        }
+    
     }//GEN-LAST:event_btnEliminarProductoActionPerformed
 
     private void btnModificarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarProductoActionPerformed
         
-        int filaSeleccionada = tableProductos.getSelectedRow();
-        if (filaSeleccionada != -1) {
-            int idProducto = (int) tableProductos.getValueAt(filaSeleccionada, 0);
-            String nombre = (String) tableProductos.getValueAt(filaSeleccionada, 1);
-            String categoria = (String) tableProductos.getValueAt(filaSeleccionada, 2);
-            BigDecimal costo = (BigDecimal) tableProductos.getValueAt(filaSeleccionada, 3);
-            BigDecimal precio = (BigDecimal) tableProductos.getValueAt(filaSeleccionada, 4);
-            int stock = (int) tableProductos.getValueAt(filaSeleccionada, 5);
-        
-            JPanel panel = new JPanel(new GridLayout(6, 2));
-            JTextField nombreField = new JTextField(nombre);
-            JTextField categoriaField = new JTextField(categoria);
-            JTextField costoField = new JTextField(String.valueOf(costo));
-            JTextField precioField = new JTextField(String.valueOf(precio));
-            JTextField stockField = new JTextField(String.valueOf(stock));
-            
-            panel.add(new JLabel("Nombre:"));
-            panel.add(nombreField);
-            panel.add(new JLabel("Categoría:"));
-            panel.add(categoriaField);
-            panel.add(new JLabel("Costo:"));
-            panel.add(costoField);
-            panel.add(new JLabel("Precio:"));
-            panel.add(precioField);
-            panel.add(new JLabel("Stock:"));
-            panel.add(stockField);
-            
-            int opcion = JOptionPane.showConfirmDialog(null, panel, "Editar Producto", JOptionPane.OK_CANCEL_OPTION);
-            if (opcion == JOptionPane.OK_OPTION) {
-                String nuevoNombre = nombreField.getText();
-                String nuevaCategoria = categoriaField.getText();
-                BigDecimal nuevoCosto = new BigDecimal(costoField.getText());
-                BigDecimal nuevoPrecio = new BigDecimal(precioField.getText());
-                int nuevoStock = Integer.parseInt(stockField.getText());
-            
-            ProductoController.actualizarProducto(idProducto, nuevoNombre, nuevaCategoria, nuevoCosto, nuevoPrecio, nuevoStock);    
+         int filaSeleccionada = tableProductos.getSelectedRow();
+    if (filaSeleccionada != -1) {
+        ProductoController.modificarProductoDesdeTabla(filaSeleccionada, tableProductos);
+    }
+             // Actualiza la tabla después de eliminar
+            actualizarTabla();
     }//GEN-LAST:event_btnModificarProductoActionPerformed
 
-    
-        }
-        }
-    
+
+        
+        
+     private void actualizarTabla() {
+        DefaultTableModel modeloTabla = ProductoController.obtenerProductos();
+        tableProductos.setModel(modeloTabla);
+    }
+
     
     
     
