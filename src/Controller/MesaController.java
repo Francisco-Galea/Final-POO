@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package Controller;
 
 import Model.Mesa;
@@ -33,7 +29,7 @@ public void crearMesaEnBD(Mesa mesa) {
             statement.setBoolean(2, mesa.isActivo());
             statement.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            
         } finally {
             try {
                 if (statement != null) {
@@ -43,7 +39,7 @@ public void crearMesaEnBD(Mesa mesa) {
                     conexion.close();
                 }
             } catch (SQLException e) {
-                e.printStackTrace();
+                
             }
         }
     }
@@ -61,10 +57,10 @@ public void crearMesaEnBD(Mesa mesa) {
 
         String sql = "DELETE FROM mesa WHERE idMesa = ?";
         statement = conexion.prepareStatement(sql);
-        statement.setInt(1, idMesa); // Utiliza el idMesa para eliminar la mesa
+        statement.setInt(1, idMesa); 
         statement.executeUpdate();
     } catch (SQLException e) {
-        e.printStackTrace();
+   
     } finally {
         try {
             if (statement != null) {
@@ -79,7 +75,7 @@ public void crearMesaEnBD(Mesa mesa) {
     }
 }
   public int obtenerIdMesaDesdeBaseDeDatos() {
-        int idMesa = -1; // Valor por defecto si no se encuentra ningún ID
+        int idMesa = -1; 
 
         Connection conexion = null;
         PreparedStatement statement = null;

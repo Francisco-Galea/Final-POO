@@ -5,6 +5,14 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import javax.swing.SwingUtilities;
 
+/*
+
+Trabajo realizado por:
+- Galea Francisco
+- Rosa Velazco Alejandro
+
+*/
+
 public class TitoRestobar {
 
     public static void main(String[] args) {
